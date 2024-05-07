@@ -1,0 +1,5 @@
+name: armory
+version: ${project.version}
+main: org.bigben.armory.Armory
+description: armories for bigben
+api-version: 1.19
