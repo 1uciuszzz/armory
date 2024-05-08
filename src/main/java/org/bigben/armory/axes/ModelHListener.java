@@ -16,7 +16,7 @@ public class ModelHListener implements Listener {
       Entity target = e.getEntity();
       Location targetLocation = target.getLocation();
       World world = target.getWorld();
-      world.strikeLightningEffect(targetLocation);
+      world.strikeLightning(targetLocation);
     }
   }
 }
