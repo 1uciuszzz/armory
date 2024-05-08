@@ -18,14 +18,11 @@ public class ModelD {
   public ItemStack load() {
     ItemStack modelD = new ItemStack(Material.CHAINMAIL_HELMET);
     ItemMeta modelDMeta = modelD.getItemMeta();
-    modelDMeta.addEnchant(Enchantment.WATER_WORKER, 1, true);
-    modelDMeta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 1, true);
-    modelDMeta.addEnchant(Enchantment.PROTECTION_FIRE, 1, true);
-    modelDMeta.addEnchant(Enchantment.PROTECTION_PROJECTILE, 1, true);
     modelDMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
-    modelDMeta.addEnchant(Enchantment.OXYGEN, 1, true);
+    modelDMeta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 1, true);
+    modelDMeta.addEnchant(Enchantment.PROTECTION_PROJECTILE, 1, true);
     modelDMeta.setUnbreakable(true);
-    modelDMeta.setDisplayName("§c§l泰克头盔");
+    modelDMeta.setDisplayName("§c§lMagic Helmet");
     List<String> loresList = new ArrayList<String>();
     loresList.add("Model D");
     modelDMeta.setLore(loresList);
@@ -38,9 +35,9 @@ public class ModelD {
 
   public ShapedRecipe registerShape(NamespacedKey recipeKey, ItemStack modelD) {
     ShapedRecipe recipe = new ShapedRecipe(recipeKey, modelD);
-    recipe.shape("RRR", "RDR", "RRR");
+    recipe.shape("DDD", "DND", "NNN");
     recipe.setIngredient('D', Material.DIAMOND_HELMET);
-    recipe.setIngredient('R', Material.DIAMOND);
+    recipe.setIngredient('N', Material.AIR);
     return recipe;
   }
 }

@@ -20,15 +20,11 @@ public class ModelG {
   public ItemStack load() {
     ItemStack modelG = new ItemStack(Material.NETHERITE_SWORD);
     ItemMeta modelGMeta = modelG.getItemMeta();
-    modelGMeta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 1, true);
-    modelGMeta.addEnchant(Enchantment.KNOCKBACK, 1, true);
     modelGMeta.addEnchant(Enchantment.LOOT_BONUS_MOBS, 1, true);
     modelGMeta.addEnchant(Enchantment.FIRE_ASPECT, 1, true);
-    modelGMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-    modelGMeta.addEnchant(Enchantment.DAMAGE_UNDEAD, 1, true);
     modelGMeta.addEnchant(Enchantment.SWEEPING_EDGE, 1, true);
     modelGMeta.setUnbreakable(true);
-    modelGMeta.setDisplayName("§c§l火剑");
+    modelGMeta.setDisplayName("§c§lFire Sword");
     List<String> loresList = new ArrayList<String>();
     loresList.add("Model G");
     modelGMeta.setLore(loresList);

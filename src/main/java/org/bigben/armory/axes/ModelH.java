@@ -16,11 +16,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ModelH {
   public ItemStack load() {
-    ItemStack modelH = new ItemStack(Material.TRIDENT);
+    ItemStack modelH = new ItemStack(Material.GOLDEN_AXE);
     ItemMeta modelHMeta = modelH.getItemMeta();
-    modelHMeta.addEnchant(Enchantment.LOYALTY, 3, true);
+    modelHMeta.addEnchant(Enchantment.DAMAGE_ALL, 5, true);
     modelHMeta.setUnbreakable(true);
-    modelHMeta.setDisplayName("§c§l暴风战戟");
+    modelHMeta.setDisplayName("§c§lThunder Axe");
     List<String> loresList = new ArrayList<String>();
     loresList.add("Model H");
     modelHMeta.setLore(loresList);
@@ -33,9 +33,11 @@ public class ModelH {
 
   public ShapedRecipe registerShape(NamespacedKey recipeKey, ItemStack modelH) {
     ShapedRecipe recipe = new ShapedRecipe(recipeKey, modelH);
-    recipe.shape("RRR", "RDR", "RRR");
-    recipe.setIngredient('D', Material.IRON_AXE);
-    recipe.setIngredient('R', Material.LAPIS_LAZULI);
+    recipe.shape("BCN", "BAN", "NAN");
+    recipe.setIngredient('N', Material.AIR);
+    recipe.setIngredient('A', Material.STICK);
+    recipe.setIngredient('B', Material.IRON_INGOT);
+    recipe.setIngredient('C', Material.CONDUIT);
     return recipe;
   }
 }

@@ -13,11 +13,10 @@ public class ModelC {
   public ItemStack load() {
     ItemStack modelC = new ItemStack(Material.DIAMOND_PICKAXE);
     ItemMeta modelCMeta = modelC.getItemMeta();
-    modelCMeta.addEnchant(Enchantment.DIG_SPEED, 3, true);
+    modelCMeta.addEnchant(Enchantment.DIG_SPEED, 1, true);
     modelCMeta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 3, true);
-    modelCMeta.addEnchant(Enchantment.WATER_WORKER, 3, true);
     modelCMeta.setUnbreakable(true);
-    modelCMeta.setDisplayName("§c§l幸运镐子");
+    modelCMeta.setDisplayName("§c§lMagic Pickaxe");
     List<String> loresList = new ArrayList<String>();
     loresList.add("Model C");
     modelCMeta.setLore(loresList);
@@ -27,9 +26,10 @@ public class ModelC {
 
   public ShapedRecipe registerShape(NamespacedKey recipeKey, ItemStack modelC) {
     ShapedRecipe recipe = new ShapedRecipe(recipeKey, modelC);
-    recipe.shape("RRR", "RDR", "RRR");
+    recipe.shape("DDD", "NRN", "NRN");
     recipe.setIngredient('D', Material.DIAMOND_PICKAXE);
-    recipe.setIngredient('R', Material.DIAMOND);
+    recipe.setIngredient('R', Material.STICK);
+    recipe.setIngredient('N', Material.AIR);
     return recipe;
   }
 }

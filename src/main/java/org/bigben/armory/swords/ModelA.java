@@ -16,7 +16,7 @@ import java.util.UUID;
 public class ModelA {
 
   public ItemStack load() {
-    ItemStack modelA = new ItemStack(Material.WOODEN_SWORD);
+    ItemStack modelA = new ItemStack(Material.GOLDEN_SWORD);
     ItemMeta modelAMeta = modelA.getItemMeta();
     modelAMeta.setUnbreakable(true);
     modelAMeta.setDisplayName("§c§l饮血剑");

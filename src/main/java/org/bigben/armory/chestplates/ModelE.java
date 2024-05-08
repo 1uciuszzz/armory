@@ -18,13 +18,13 @@ public class ModelE {
   public ItemStack load() {
     ItemStack modelE = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
     ItemMeta modelEMeta = modelE.getItemMeta();
+    modelEMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
     modelEMeta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 1, true);
     modelEMeta.addEnchant(Enchantment.PROTECTION_FIRE, 1, true);
     modelEMeta.addEnchant(Enchantment.PROTECTION_PROJECTILE, 1, true);
-    modelEMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
     modelEMeta.addEnchant(Enchantment.THORNS, 1, true);
     modelEMeta.setUnbreakable(true);
-    modelEMeta.setDisplayName("§c§l荆棘胸甲");
+    modelEMeta.setDisplayName("§c§lMagic Chestplate");
     List<String> loresList = new ArrayList<String>();
     loresList.add("Model E");
     modelEMeta.setLore(loresList);
@@ -37,9 +37,9 @@ public class ModelE {
 
   public ShapedRecipe registerShape(NamespacedKey recipeKey, ItemStack modelE) {
     ShapedRecipe recipe = new ShapedRecipe(recipeKey, modelE);
-    recipe.shape("RRR", "RDR", "RRR");
+    recipe.shape("DND", "DDD", "DDD");
     recipe.setIngredient('D', Material.DIAMOND_CHESTPLATE);
-    recipe.setIngredient('R', Material.DIAMOND);
+    recipe.setIngredient('N', Material.AIR);
     return recipe;
   }
 }

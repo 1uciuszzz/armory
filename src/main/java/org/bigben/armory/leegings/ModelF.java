@@ -18,12 +18,12 @@ public class ModelF {
   public ItemStack load() {
     ItemStack modelF = new ItemStack(Material.CHAINMAIL_LEGGINGS);
     ItemMeta modelFMeta = modelF.getItemMeta();
-    modelFMeta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 1, true);
-    modelFMeta.addEnchant(Enchantment.PROTECTION_FIRE, 1, true);
-    modelFMeta.addEnchant(Enchantment.PROTECTION_PROJECTILE, 1, true);
     modelFMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
+    modelFMeta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 1, true);
+    modelFMeta.addEnchant(Enchantment.PROTECTION_PROJECTILE, 1, true);
+    modelFMeta.addEnchant(Enchantment.PROTECTION_FIRE, 1, true);
     modelFMeta.setUnbreakable(true);
-    modelFMeta.setDisplayName("§c§l泰克护腿");
+    modelFMeta.setDisplayName("§c§lMagic Leggings");
     List<String> loresList = new ArrayList<String>();
     loresList.add("Model F");
     modelFMeta.setLore(loresList);
@@ -36,9 +36,9 @@ public class ModelF {
 
   public ShapedRecipe registerShape(NamespacedKey recipeKey, ItemStack modelF) {
     ShapedRecipe recipe = new ShapedRecipe(recipeKey, modelF);
-    recipe.shape("RRR", "RDR", "RRR");
+    recipe.shape("DDD", "DND", "DND");
     recipe.setIngredient('D', Material.DIAMOND_LEGGINGS);
-    recipe.setIngredient('R', Material.DIAMOND);
+    recipe.setIngredient('N', Material.AIR);
     return recipe;
   }
 }

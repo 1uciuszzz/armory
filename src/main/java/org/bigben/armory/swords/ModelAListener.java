@@ -3,6 +3,8 @@ package org.bigben.armory.swords;
 import java.util.List;
 
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,14 +16,16 @@ public class ModelAListener implements Listener {
 
   @EventHandler
   public void onDamageForBlooding(EntityDamageByEntityEvent e) {
-    if (e.getEntity() instanceof Player) {
+    EntityType targetType = e.getEntityType();
+    Entity damager = e.getDamager();
+    Player player = damager instanceof Player ? (Player) damager : null;
+    if (player == null) {
       return;
     }
-    Player damager = e.getDamager() instanceof Player ? (Player) e.getDamager() : null;
-    if (damager == null) {
+    if (targetType.equals(EntityType.PLAYER)) {
       return;
     }
-    ItemStack modelA = damager.getInventory().getItemInMainHand();
+    ItemStack modelA = player.getInventory().getItemInMainHand();
     ItemMeta metaData = modelA.getItemMeta();
     if (metaData == null) {
       return;
@@ -34,9 +38,9 @@ public class ModelAListener implements Listener {
       return;
     }
     double damage = e.getFinalDamage();
-    double health = damager.getHealth();
-    double maxHealth = damager.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+    double health = player.getHealth();
+    double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
     double healAmount = Math.floor(damage * 0.5);
-    damager.setHealth(Math.min(health + healAmount, maxHealth));
+    player.setHealth(Math.min(health + healAmount, maxHealth));
   }
 }

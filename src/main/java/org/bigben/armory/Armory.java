@@ -3,6 +3,8 @@ package org.bigben.armory;
 import org.bigben.armory.axes.ModelH;
 import org.bigben.armory.axes.ModelHListener;
 import org.bigben.armory.boots.ModelB;
+import org.bigben.armory.bow.ModelI;
+import org.bigben.armory.bow.ModelIListener;
 import org.bigben.armory.chestplates.ModelE;
 import org.bigben.armory.helmets.ModelD;
 import org.bigben.armory.leegings.ModelF;
@@ -50,6 +52,11 @@ public class Armory extends JavaPlugin {
     NamespacedKey modelHRecipeKey = new NamespacedKey(this, "bigben_armory_model_h");
     getServer().addRecipe(modelH.registerShape(modelHRecipeKey, modelH.load()));
     getServer().getPluginManager().registerEvents(new ModelHListener(), this);
+    // Model I
+    ModelI modelI = new ModelI();
+    NamespacedKey modelIRecipeKey = new NamespacedKey(this, "bigben_armory_model_i");
+    getServer().addRecipe(modelI.registerShape(modelIRecipeKey, modelI.load()));
+    getServer().getPluginManager().registerEvents(new ModelIListener(), this);
     // log
     getLogger().info("Armory has been enabled!");
   }

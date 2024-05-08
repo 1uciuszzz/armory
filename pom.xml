@@ -11,7 +11,7 @@
 
   <name>armory</name>
   <!-- FIXME change it to the project's website -->
-  <url>https://github.com/6igben</url>
+  <url>https://github.com/1uciuszzz/armory</url>
 
   <repositories>
     <repository>
@@ -30,7 +30,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.20.1-R0.1-SNAPSHOT</version>
+      <version>1.19-R0.1-SNAPSHOT</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
