@@ -1,68 +1,89 @@
 package org.bigben.armory;
 
-import org.bigben.armory.axes.ModelH;
-import org.bigben.armory.axes.ModelHListener;
-import org.bigben.armory.boots.ModelB;
-import org.bigben.armory.bow.ModelI;
-import org.bigben.armory.bow.ModelIListener;
-import org.bigben.armory.chestplates.ModelE;
-import org.bigben.armory.helmets.ModelD;
-import org.bigben.armory.leegings.ModelF;
-import org.bigben.armory.swords.ModelA;
-import org.bigben.armory.swords.ModelAListener;
-import org.bigben.armory.swords.ModelG;
-import org.bigben.armory.tools.ModelC;
-import org.bukkit.NamespacedKey;
+import org.bigben.armory.axes.Ben002;
+import org.bigben.armory.axes.Ben002Listener;
+import org.bigben.armory.bow.Ben003;
+import org.bigben.armory.bow.Ben003Listener;
+import org.bigben.armory.foods.Ben004;
+import org.bigben.armory.foods.Ben004Listener;
+import org.bigben.armory.foods.Ben007;
+import org.bigben.armory.foods.Ben007Listener;
+import org.bigben.armory.hoes.Ben006;
+import org.bigben.armory.hoes.Ben006Listener;
+import org.bigben.armory.swords.Ben001;
+import org.bigben.armory.swords.Ben001Listener;
+import org.bigben.armory.swords.Ben005;
+import org.bigben.armory.swords.Ben005Listener;
+import org.bigben.armory.tools.Ben008;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Armory extends JavaPlugin {
+  private Ben001 ben001;
+  private Ben002 ben002;
+  private Ben003 ben003;
+  private Ben004 ben004;
+  private Ben005 ben005;
+  private Ben006 ben006;
+  private Ben007 ben007;
+  private Ben008 ben008;
+
   @Override
   public void onEnable() {
-    // Model A
-    ModelA modelA = new ModelA();
-    NamespacedKey modelARecipeKey = new NamespacedKey(this, "bigben_armory_model_a");
-    getServer().addRecipe(modelA.registerShape(modelARecipeKey, modelA.load()));
-    getServer().getPluginManager().registerEvents(new ModelAListener(), this);
-    // Model B
-    ModelB modelB = new ModelB();
-    NamespacedKey modelBRecipeKey = new NamespacedKey(this, "bigben_armory_model_b");
-    getServer().addRecipe(modelB.registerShape(modelBRecipeKey, modelB.load()));
-    // Model C
-    ModelC modelC = new ModelC();
-    NamespacedKey modelCRecipeKey = new NamespacedKey(this, "bigben_armory_model_c");
-    getServer().addRecipe(modelC.registerShape(modelCRecipeKey, modelC.load()));
-    // Model D
-    ModelD modelD = new ModelD();
-    NamespacedKey modelDRecipeKey = new NamespacedKey(this, "bigben_armory_model_d");
-    getServer().addRecipe(modelD.registerShape(modelDRecipeKey, modelD.load()));
-    // Model E
-    ModelE modelE = new ModelE();
-    NamespacedKey modelERecipeKey = new NamespacedKey(this, "bigben_armory_model_e");
-    getServer().addRecipe(modelE.registerShape(modelERecipeKey, modelE.load()));
-    // Model F
-    ModelF modelF = new ModelF();
-    NamespacedKey modelFRecipeKey = new NamespacedKey(this, "bigben_armory_model_f");
-    getServer().addRecipe(modelF.registerShape(modelFRecipeKey, modelF.load()));
-    // Model G
-    ModelG modelG = new ModelG();
-    NamespacedKey modelGRecipeKey = new NamespacedKey(this, "bigben_armory_model_g");
-    getServer().addRecipe(modelG.registerShape(modelGRecipeKey, modelG.load()));
-    // Model H
-    ModelH modelH = new ModelH();
-    NamespacedKey modelHRecipeKey = new NamespacedKey(this, "bigben_armory_model_h");
-    getServer().addRecipe(modelH.registerShape(modelHRecipeKey, modelH.load()));
-    getServer().getPluginManager().registerEvents(new ModelHListener(), this);
-    // Model I
-    ModelI modelI = new ModelI();
-    NamespacedKey modelIRecipeKey = new NamespacedKey(this, "bigben_armory_model_i");
-    getServer().addRecipe(modelI.registerShape(modelIRecipeKey, modelI.load()));
-    getServer().getPluginManager().registerEvents(new ModelIListener(), this);
+    ben001 = new Ben001(this);
+    ben002 = new Ben002(this);
+    ben003 = new Ben003(this);
+    ben004 = new Ben004(this);
+    ben005 = new Ben005(this);
+    ben006 = new Ben006(this);
+    ben007 = new Ben007(this);
+    ben008 = new Ben008(this);
+
+    registerRecipes();
+
+    registerListeners();
     // log
-    getLogger().info("Armory has been enabled!");
+    getLogger().info("[Armory] 已注册");
+  }
+
+  private void registerRecipes() {
+    // 获取配方
+    ShapedRecipe recipeBen001 = ben001.registerShape();
+    ShapedRecipe recipeBen002 = ben002.registerShape();
+    ShapedRecipe recipeBen003 = ben003.registerShape();
+    ShapedRecipe recipeBen004 = ben004.registerShape();
+    ShapedRecipe recipeBen005 = ben005.registerShape();
+    ShapedRecipe recipeBen006 = ben006.registerShape();
+    ShapedRecipe recipeBen007 = ben007.registerShape();
+    ShapedRecipe recipeBen008 = ben008.registerShape();
+
+    // 添加配方
+    Bukkit.addRecipe(recipeBen001);
+    Bukkit.addRecipe(recipeBen002);
+    Bukkit.addRecipe(recipeBen003);
+    Bukkit.addRecipe(recipeBen004);
+    Bukkit.addRecipe(recipeBen005);
+    Bukkit.addRecipe(recipeBen006);
+    Bukkit.addRecipe(recipeBen007);
+    Bukkit.addRecipe(recipeBen008);
+
+    getLogger().info("已成功注册合成配方！");
+  }
+
+  private void registerListeners() {
+    getServer().getPluginManager().registerEvents(new Ben001Listener(this), this);
+    getServer().getPluginManager().registerEvents(new Ben002Listener(this), this);
+    getServer().getPluginManager().registerEvents(new Ben003Listener(this), this);
+    getServer().getPluginManager().registerEvents(new Ben004Listener(this), this);
+    getServer().getPluginManager().registerEvents(new Ben005Listener(this), this);
+    getServer().getPluginManager().registerEvents(new Ben006Listener(this), this);
+    getServer().getPluginManager().registerEvents(new Ben007Listener(this), this);
+    getLogger().info("事件监听器已注册！");
   }
 
   @Override
   public void onDisable() {
-    getLogger().info("Armory has been disabled!");
+    getLogger().info("[Armory] has been disabled!");
   }
 }
