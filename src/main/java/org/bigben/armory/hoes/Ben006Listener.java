@@ -3,6 +3,7 @@ package org.bigben.armory.hoes;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,8 +15,13 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Set;
+
 public class Ben006Listener implements Listener {
   private final NamespacedKey modelSKey;
+  private final Set<Material> crops = Set.of(
+      Material.WHEAT, Material.CARROTS, Material.POTATOES,
+      Material.BEETROOTS, Material.NETHER_WART);
 
   public Ben006Listener(JavaPlugin plugin) {
     this.modelSKey = new NamespacedKey(plugin, "Ben006");
@@ -26,32 +32,27 @@ public class Ben006Listener implements Listener {
     if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
       return;
     }
+
     Block block = event.getClickedBlock();
-    if (block == null || (block.getType() != Material.WHEAT && block.getType() != Material.CARROTS
-        && block.getType() != Material.POTATOES)) {
+    if (block == null || !crops.contains(block.getType())) {
       return;
     }
+
     Player player = event.getPlayer();
     ItemStack item = player.getInventory().getItemInMainHand();
     if (!isModelS(item)) {
       return;
     }
-    block.breakNaturally();
-    Material cropType = block.getType();
-    if (cropType == Material.WHEAT) {
-      block.setType(Material.WHEAT);
-    } else if (cropType == Material.CARROTS) {
-      block.setType(Material.CARROTS);
-    } else if (cropType == Material.POTATOES) {
-      block.setType(Material.POTATOES);
-    } else if (cropType == Material.BEETROOTS) {
-      block.setType(Material.BEETROOTS);
-    } else if (cropType == Material.MELON_STEM) {
-      block.setType(Material.MELON_STEM);
-    } else if (cropType == Material.PUMPKIN_STEM) {
-      block.setType(Material.PUMPKIN_STEM);
-    } else if (cropType == Material.NETHER_WART) {
-      block.setType(Material.NETHER_WART);
+
+    // 确保作物已成熟才收获
+    if (isFullyGrown(block)) {
+      Material cropType = block.getType();
+
+      // 破坏作物并掉落物品
+      block.breakNaturally();
+
+      // 重新种植相同的作物
+      block.setType(cropType);
     }
   }
 
@@ -62,5 +63,12 @@ public class Ben006Listener implements Listener {
     ItemMeta meta = item.getItemMeta();
     PersistentDataContainer data = meta.getPersistentDataContainer();
     return data.has(modelSKey, PersistentDataType.BYTE);
+  }
+
+  private boolean isFullyGrown(Block block) {
+    if (block.getBlockData() instanceof Ageable ageable) {
+      return ageable.getAge() == ageable.getMaximumAge();
+    }
+    return false;
   }
 }
