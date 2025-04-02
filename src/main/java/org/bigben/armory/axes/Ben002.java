@@ -55,8 +55,7 @@ public class Ben002 {
   public ShapedRecipe registerShape() {
     ItemStack item = createItem();
     ShapedRecipe recipe = new ShapedRecipe(key, item);
-    recipe.shape("BCN", "BAN", "NAN");
-    recipe.setIngredient('N', Material.AIR);
+    recipe.shape("BC ", "BA ", " A ");
     recipe.setIngredient('A', Material.STICK);
     recipe.setIngredient('B', Material.IRON_INGOT);
     recipe.setIngredient('C', Material.TRIDENT);
