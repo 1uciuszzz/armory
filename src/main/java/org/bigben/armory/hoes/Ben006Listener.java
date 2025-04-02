@@ -37,7 +37,22 @@ public class Ben006Listener implements Listener {
       return;
     }
     block.breakNaturally();
-    block.setType(Material.WHEAT); // 重新种植（可改进为动态检测作物）
+    Material cropType = block.getType();
+    if (cropType == Material.WHEAT) {
+      block.setType(Material.WHEAT);
+    } else if (cropType == Material.CARROTS) {
+      block.setType(Material.CARROTS);
+    } else if (cropType == Material.POTATOES) {
+      block.setType(Material.POTATOES);
+    } else if (cropType == Material.BEETROOTS) {
+      block.setType(Material.BEETROOTS);
+    } else if (cropType == Material.MELON_STEM) {
+      block.setType(Material.MELON_STEM);
+    } else if (cropType == Material.PUMPKIN_STEM) {
+      block.setType(Material.PUMPKIN_STEM);
+    } else if (cropType == Material.NETHER_WART) {
+      block.setType(Material.NETHER_WART);
+    }
   }
 
   private boolean isModelS(ItemStack item) {

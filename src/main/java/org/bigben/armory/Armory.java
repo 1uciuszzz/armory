@@ -2,6 +2,7 @@ package org.bigben.armory;
 
 import org.bigben.armory.axes.Ben002;
 import org.bigben.armory.axes.Ben002Listener;
+import org.bigben.armory.axes.TreeFellerAxe;
 import org.bigben.armory.bow.Ben003;
 import org.bigben.armory.bow.Ben003Listener;
 import org.bigben.armory.foods.Ben004;
@@ -28,6 +29,7 @@ public class Armory extends JavaPlugin {
   private Ben006 ben006;
   private Ben007 ben007;
   private Ben008 ben008;
+  private TreeFellerAxe treeFellerAxe;
 
   @Override
   public void onEnable() {
@@ -39,6 +41,7 @@ public class Armory extends JavaPlugin {
     ben006 = new Ben006(this);
     ben007 = new Ben007(this);
     ben008 = new Ben008(this);
+    treeFellerAxe = new TreeFellerAxe(this);
 
     registerRecipes();
 
@@ -57,6 +60,7 @@ public class Armory extends JavaPlugin {
     ShapedRecipe recipeBen006 = ben006.registerShape();
     ShapedRecipe recipeBen007 = ben007.registerShape();
     ShapedRecipe recipeBen008 = ben008.registerShape();
+    ShapedRecipe recipeTreeFellerAxe = treeFellerAxe.registerRecipe();
 
     // 添加配方
     Bukkit.addRecipe(recipeBen001);
@@ -67,6 +71,7 @@ public class Armory extends JavaPlugin {
     Bukkit.addRecipe(recipeBen006);
     Bukkit.addRecipe(recipeBen007);
     Bukkit.addRecipe(recipeBen008);
+    Bukkit.addRecipe(recipeTreeFellerAxe);
 
     getLogger().info("已成功注册合成配方！");
   }
@@ -79,6 +84,7 @@ public class Armory extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new Ben005Listener(this), this);
     getServer().getPluginManager().registerEvents(new Ben006Listener(this), this);
     getServer().getPluginManager().registerEvents(new Ben007Listener(this), this);
+    getServer().getPluginManager().registerEvents(treeFellerAxe, this);
     getLogger().info("事件监听器已注册！");
   }
 
