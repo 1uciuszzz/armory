@@ -56,8 +56,7 @@ public class Ben003 {
   public ShapedRecipe registerShape() {
     ItemStack modelI = createItem(); // 确保每次创建新物品
     ShapedRecipe recipe = new ShapedRecipe(key, modelI);
-    recipe.shape("CBN", "CAB", "CBN");
-    recipe.setIngredient('N', Material.AIR);
+    recipe.shape("CB ", "CAB", "CB ");
     recipe.setIngredient('A', Material.NETHER_STAR);
     recipe.setIngredient('B', Material.DIAMOND);
     recipe.setIngredient('C', Material.STRING);

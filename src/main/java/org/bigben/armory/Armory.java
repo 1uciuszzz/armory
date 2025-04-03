@@ -5,6 +5,7 @@ import org.bigben.armory.axes.Ben002Listener;
 import org.bigben.armory.axes.TreeFellerAxe;
 import org.bigben.armory.bow.Ben003;
 import org.bigben.armory.bow.Ben003Listener;
+import org.bigben.armory.bow.LightningBow;
 import org.bigben.armory.foods.Ben004;
 import org.bigben.armory.foods.Ben004Listener;
 import org.bigben.armory.foods.Ben007;
@@ -16,6 +17,7 @@ import org.bigben.armory.swords.Ben001Listener;
 import org.bigben.armory.swords.Ben005;
 import org.bigben.armory.swords.Ben005Listener;
 import org.bigben.armory.tools.Ben008;
+import org.bigben.armory.tools.LuckyShovel;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,6 +32,8 @@ public class Armory extends JavaPlugin {
   private Ben007 ben007;
   private Ben008 ben008;
   private TreeFellerAxe treeFellerAxe;
+  private LightningBow lightningBow;
+  private LuckyShovel luckyShovel;
 
   @Override
   public void onEnable() {
@@ -42,6 +46,8 @@ public class Armory extends JavaPlugin {
     ben007 = new Ben007(this);
     ben008 = new Ben008(this);
     treeFellerAxe = new TreeFellerAxe(this);
+    lightningBow = new LightningBow(this);
+    luckyShovel = new LuckyShovel(this);
 
     registerRecipes();
 
@@ -61,6 +67,8 @@ public class Armory extends JavaPlugin {
     ShapedRecipe recipeBen007 = ben007.registerShape();
     ShapedRecipe recipeBen008 = ben008.registerShape();
     ShapedRecipe recipeTreeFellerAxe = treeFellerAxe.registerRecipe();
+    ShapedRecipe recipeLightningBow = lightningBow.registerRecipe();
+    ShapedRecipe registerLuckShovel = luckyShovel.registerRecipe();
 
     // 添加配方
     Bukkit.addRecipe(recipeBen001);
@@ -72,6 +80,8 @@ public class Armory extends JavaPlugin {
     Bukkit.addRecipe(recipeBen007);
     Bukkit.addRecipe(recipeBen008);
     Bukkit.addRecipe(recipeTreeFellerAxe);
+    Bukkit.addRecipe(recipeLightningBow);
+    Bukkit.addRecipe(registerLuckShovel);
 
     getLogger().info("已成功注册合成配方！");
   }
@@ -85,6 +95,8 @@ public class Armory extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new Ben006Listener(this), this);
     getServer().getPluginManager().registerEvents(new Ben007Listener(this), this);
     getServer().getPluginManager().registerEvents(treeFellerAxe, this);
+    getServer().getPluginManager().registerEvents(lightningBow, this);
+    getServer().getPluginManager().registerEvents(luckyShovel, this);
     getLogger().info("事件监听器已注册！");
   }
 

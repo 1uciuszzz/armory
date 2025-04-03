@@ -38,9 +38,9 @@ public class Ben007 {
   public ShapedRecipe registerShape() {
     ItemStack modelX = createItem();
     ShapedRecipe recipe = new ShapedRecipe(key, modelX);
-    recipe.shape(" P ", "GRG", " P ");
+    recipe.shape(" P ", " G ", " R ");
     recipe.setIngredient('P', Material.PAPER);
-    recipe.setIngredient('G', Material.GOLDEN_APPLE);
+    recipe.setIngredient('G', Material.APPLE);
     recipe.setIngredient('R', Material.REDSTONE);
     return recipe;
   }
