@@ -5,6 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -47,9 +48,9 @@ public class GoldenScythe implements Listener {
   @EventHandler
   public void onRightClick(PlayerInteractEvent event) {
     if (event.getHand() != EquipmentSlot.HAND ||
-        (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR)) {
+        !(event.getAction() == Action.RIGHT_CLICK_BLOCK ||
+            event.getAction() == Action.RIGHT_CLICK_AIR))
       return;
-    }
 
     Player player = event.getPlayer();
     ItemStack item = player.getInventory().getItemInMainHand();
@@ -61,6 +62,12 @@ public class GoldenScythe implements Listener {
       return;
 
     event.setCancelled(true); // 防止误触
+
+    // 如果是草地，则将其开垦成耕地
+    if (center.getType() == Material.GRASS_BLOCK) {
+      center.setType(Material.FARMLAND);
+      player.sendMessage("§a你将草地转变为耕地！");
+    }
 
     // 遍历3x3区域
     for (int dx = -1; dx <= 1; dx++) {
@@ -88,6 +95,13 @@ public class GoldenScythe implements Listener {
       return;
     if (ageable.getAge() < ageable.getMaximumAge())
       return;
+
+    // 确保是耕地
+    Block belowBlock = block.getRelative(BlockFace.DOWN);
+    if (belowBlock.getType() != Material.FARMLAND) {
+      player.sendMessage("§c这块地不是耕地，无法种植！");
+      return;
+    }
 
     block.breakNaturally(); // 模拟自然破坏
 
@@ -126,6 +140,7 @@ public class GoldenScythe implements Listener {
       meta.setDisplayName("§e金镰刀");
       meta.getPersistentDataContainer().set(scytheKey, PersistentDataType.BYTE, (byte) 1);
       meta.setUnbreakable(true);
+      meta.addEnchant(Enchantment.DURABILITY, 3, true);
       hoe.setItemMeta(meta);
     }
     return hoe;
@@ -134,7 +149,7 @@ public class GoldenScythe implements Listener {
   public ShapedRecipe registerRecipe() {
     ItemStack hoe = createGoldenScythe();
     ShapedRecipe recipe = new ShapedRecipe(scytheKey, hoe);
-    recipe.shape("GG ", " S ", " S ");
+    recipe.shape(" GG", " S ", " S ");
     recipe.setIngredient('G', Material.DIAMOND);
     recipe.setIngredient('S', Material.BLAZE_ROD);
     return recipe;
