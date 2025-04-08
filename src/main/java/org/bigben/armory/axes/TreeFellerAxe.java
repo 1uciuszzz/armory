@@ -100,8 +100,9 @@ public class TreeFellerAxe implements Listener {
   public ShapedRecipe registerRecipe() {
     ItemStack axe = createTreeFellerAxe();
     ShapedRecipe recipe = new ShapedRecipe(axeKey, axe);
-    recipe.shape(" LL", " LL", " L ");
-    recipe.setIngredient('L', Material.GOLDEN_AXE);
+    recipe.shape("AA ", "AB ", " B ");
+    recipe.setIngredient('A', Material.DIAMOND);
+    recipe.setIngredient('B', Material.BLAZE_ROD);
     return recipe;
   }
 

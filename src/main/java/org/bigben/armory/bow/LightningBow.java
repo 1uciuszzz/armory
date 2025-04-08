@@ -2,6 +2,7 @@ package org.bigben.armory.bow;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -71,9 +72,10 @@ public class LightningBow implements Listener {
     ItemStack bow = new ItemStack(Material.BOW);
     ItemMeta meta = bow.getItemMeta();
     if (meta != null) {
-      meta.setDisplayName("§6杨永信的箭");
+      meta.setDisplayName("§6电工");
       meta.getPersistentDataContainer().set(bowKey, PersistentDataType.BYTE, (byte) 1);
       meta.setUnbreakable(true);
+      meta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
       bow.setItemMeta(meta);
     }
     return bow;
@@ -82,10 +84,9 @@ public class LightningBow implements Listener {
   public ShapedRecipe registerRecipe() {
     ItemStack bow = createLightningBow();
     ShapedRecipe recipe = new ShapedRecipe(bowKey, bow);
-    recipe.shape("BSD", "BDS", "BSD");
-    recipe.setIngredient('B', Material.BLAZE_ROD);
-    recipe.setIngredient('S', Material.STRING);
-    recipe.setIngredient('D', Material.DIAMOND);
+    recipe.shape(" AB", "A B", " AB");
+    recipe.setIngredient('A', Material.BLAZE_ROD);
+    recipe.setIngredient('B', Material.STRING);
     return recipe;
   }
 

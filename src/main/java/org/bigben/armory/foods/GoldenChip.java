@@ -2,25 +2,30 @@ package org.bigben.armory.foods;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ben004 {
+public class GoldenChip implements Listener {
   private final NamespacedKey key;
 
-  public Ben004(JavaPlugin plugin) {
-    this.key = new NamespacedKey(plugin, "Ben004");
+  public GoldenChip(JavaPlugin plugin) {
+    this.key = new NamespacedKey(plugin, "GoldenChip");
   }
 
   public ItemStack createItem() {
-    ItemStack item = new ItemStack(Material.ROTTEN_FLESH); // 物品外形为腐肉
+    ItemStack item = new ItemStack(Material.BAKED_POTATO);
     ItemMeta meta = item.getItemMeta();
 
     if (meta != null) {
@@ -41,15 +46,24 @@ public class Ben004 {
     return item;
   }
 
-  public ShapedRecipe registerShape() {
+  public ShapedRecipe registerRecipe() {
     ShapedRecipe recipe = new ShapedRecipe(key, createItem());
     recipe.shape(" G ", " P ", "   ");
     recipe.setIngredient('G', Material.GOLD_NUGGET);
-    recipe.setIngredient('P', Material.BAKED_POTATO);
+    recipe.setIngredient('P', Material.POTATO);
     return recipe;
   }
 
-  public NamespacedKey getKey() {
-    return key;
+  @EventHandler
+  public void onPlayerEat(PlayerItemConsumeEvent event) {
+    if (event.getItem().getItemMeta() != null &&
+        event.getItem().getItemMeta().getPersistentDataContainer().has(key, PersistentDataType.BYTE)) {
+
+      event.getPlayer().sendMessage("§e你吃下了黄金薯片，感觉精力充沛！");
+
+      // 添加正向 Buff
+      event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 5, 1)); // 速度 II，持续 5 秒
+      event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 5, 1)); // 生命恢复 II，持续 5 秒
+    }
   }
 }

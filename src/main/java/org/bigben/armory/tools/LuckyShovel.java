@@ -147,7 +147,7 @@ public class LuckyShovel implements Listener {
     ItemStack shovel = createLuckyShovel();
     ShapedRecipe recipe = new ShapedRecipe(shovelKey, shovel);
     recipe.shape(" G ", " S ", " S ");
-    recipe.setIngredient('G', Material.GOLD_BLOCK);
+    recipe.setIngredient('G', Material.EMERALD);
     recipe.setIngredient('S', Material.BLAZE_ROD);
     return recipe;
   }
