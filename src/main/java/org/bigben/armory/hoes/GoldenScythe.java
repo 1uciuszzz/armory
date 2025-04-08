@@ -5,7 +5,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -140,7 +139,6 @@ public class GoldenScythe implements Listener {
       meta.setDisplayName("§e金镰刀");
       meta.getPersistentDataContainer().set(scytheKey, PersistentDataType.BYTE, (byte) 1);
       meta.setUnbreakable(true);
-      meta.addEnchant(Enchantment.DURABILITY, 3, true);
       hoe.setItemMeta(meta);
     }
     return hoe;
