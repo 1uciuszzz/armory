@@ -6,7 +6,6 @@ import org.bigben.armory.foods.GoldenChip;
 import org.bigben.armory.hoes.GoldenScythe;
 import org.bigben.armory.swords.LuckySword;
 import org.bigben.armory.tools.LuckyPickaxe;
-import org.bigben.armory.items.LightningScope;
 import org.bigben.armory.tools.LuckyShovel;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ShapedRecipe;
@@ -20,7 +19,6 @@ public class Armory extends JavaPlugin {
   private TreeFellerAxe treeFellerAxe;
   private LightningBow lightningBow;
   private LuckyShovel luckyShovel;
-  private LightningScope lightningScope;
 
   @Override
   public void onEnable() {
@@ -30,7 +28,6 @@ public class Armory extends JavaPlugin {
     lightningBow = new LightningBow(this);
     luckyShovel = new LuckyShovel(this);
     goldenScythe = new GoldenScythe(this);
-    lightningScope = new LightningScope(this);
     luckySword = new LuckySword(this);
 
     registerRecipes();
@@ -49,7 +46,6 @@ public class Armory extends JavaPlugin {
     ShapedRecipe registerLuckShovel = luckyShovel.registerRecipe();
     ShapedRecipe registerLuckSword = luckySword.registerRecipe();
     ShapedRecipe registerGoldenScythe = goldenScythe.registerRecipe();
-    ShapedRecipe registerLightningScope = lightningScope.registerRecipe();
 
     // 添加配方
     Bukkit.addRecipe(recipeGoldenChip);
@@ -58,7 +54,6 @@ public class Armory extends JavaPlugin {
     Bukkit.addRecipe(recipeLightningBow);
     Bukkit.addRecipe(registerLuckShovel);
     Bukkit.addRecipe(registerGoldenScythe);
-    Bukkit.addRecipe(registerLightningScope);
     Bukkit.addRecipe(registerLuckSword);
 
     getLogger().info("已成功注册合成配方！");
@@ -70,7 +65,6 @@ public class Armory extends JavaPlugin {
     getServer().getPluginManager().registerEvents(lightningBow, this);
     getServer().getPluginManager().registerEvents(luckyShovel, this);
     getServer().getPluginManager().registerEvents(luckySword, this);
-    getServer().getPluginManager().registerEvents(lightningScope, this);
     getServer().getPluginManager().registerEvents(goldenScythe, this);
     getLogger().info("事件监听器已注册！");
   }
