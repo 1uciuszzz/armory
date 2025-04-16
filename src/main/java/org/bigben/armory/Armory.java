@@ -5,6 +5,8 @@ import org.bigben.armory.bow.LightningBow;
 import org.bigben.armory.foods.GoldenChip;
 import org.bigben.armory.hoes.GoldenScythe;
 import org.bigben.armory.swords.LuckySword;
+import org.bigben.armory.tools.AquaVisionHelmet;
+import org.bigben.armory.tools.BlazeWand;
 import org.bigben.armory.tools.LuckyPickaxe;
 import org.bigben.armory.tools.LuckyShovel;
 import org.bukkit.Bukkit;
@@ -19,6 +21,8 @@ public class Armory extends JavaPlugin {
   private TreeFellerAxe treeFellerAxe;
   private LightningBow lightningBow;
   private LuckyShovel luckyShovel;
+  private BlazeWand blazeWand;
+  private AquaVisionHelmet aquaVisionHelmet;
 
   @Override
   public void onEnable() {
@@ -29,6 +33,8 @@ public class Armory extends JavaPlugin {
     luckyShovel = new LuckyShovel(this);
     goldenScythe = new GoldenScythe(this);
     luckySword = new LuckySword(this);
+    blazeWand = new BlazeWand(this);
+    aquaVisionHelmet = new AquaVisionHelmet(this);
 
     registerRecipes();
 
@@ -46,6 +52,8 @@ public class Armory extends JavaPlugin {
     ShapedRecipe registerLuckShovel = luckyShovel.registerRecipe();
     ShapedRecipe registerLuckSword = luckySword.registerRecipe();
     ShapedRecipe registerGoldenScythe = goldenScythe.registerRecipe();
+    ShapedRecipe registerBlazeWand = blazeWand.registerRecipe();
+    ShapedRecipe registerAquaVisionHelmet = aquaVisionHelmet.registerRecipe();
 
     // 添加配方
     Bukkit.addRecipe(recipeGoldenChip);
@@ -55,6 +63,8 @@ public class Armory extends JavaPlugin {
     Bukkit.addRecipe(registerLuckShovel);
     Bukkit.addRecipe(registerGoldenScythe);
     Bukkit.addRecipe(registerLuckSword);
+    Bukkit.addRecipe(registerBlazeWand);
+    Bukkit.addRecipe(registerAquaVisionHelmet);
 
     getLogger().info("已成功注册合成配方！");
   }
@@ -66,6 +76,9 @@ public class Armory extends JavaPlugin {
     getServer().getPluginManager().registerEvents(luckyShovel, this);
     getServer().getPluginManager().registerEvents(luckySword, this);
     getServer().getPluginManager().registerEvents(goldenScythe, this);
+    getServer().getPluginManager().registerEvents(blazeWand, this);
+    getServer().getPluginManager().registerEvents(luckyPickaxe, this);
+    getServer().getPluginManager().registerEvents(aquaVisionHelmet, this);
     getLogger().info("事件监听器已注册！");
   }
 
