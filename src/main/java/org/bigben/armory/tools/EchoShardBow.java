@@ -99,6 +99,16 @@ public class EchoShardBow implements Listener {
     }
   }
 
+  @EventHandler
+  public void onMeleeAttack(EntityDamageByEntityEvent event) {
+    if (event.getDamager() instanceof Player player) {
+      ItemStack item = player.getInventory().getItemInMainHand();
+      if (isCustomBow(item)) {
+        event.setCancelled(true);
+      }
+    }
+  }
+
   public NamespacedKey getKey() {
     return bowKey;
   }

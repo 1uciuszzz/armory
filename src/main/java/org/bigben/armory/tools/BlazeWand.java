@@ -5,6 +5,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -92,6 +93,16 @@ public class BlazeWand implements Listener {
   }
 
   @EventHandler
+  public void onMeleeAttack(EntityDamageByEntityEvent event) {
+    if (event.getDamager() instanceof Player player) {
+      ItemStack item = player.getInventory().getItemInMainHand();
+      if (isBlazeWand(item)) {
+        event.setCancelled(true);
+      }
+    }
+  }
+
+  @EventHandler
   public void onArrowHit(EntityDamageByEntityEvent event) {
     Entity damager = event.getDamager();
     if (damager instanceof Arrow && firedArrows.contains(damager.getUniqueId())) {
@@ -104,6 +115,20 @@ public class BlazeWand implements Listener {
       Location loc = event.getEntity().getLocation();
       loc.getWorld().createExplosion(loc, 2.0f); // 小型爆炸
       firedFireballs.remove(damager.getUniqueId());
+    }
+  }
+
+  @EventHandler
+  public void onProjectileHit(ProjectileHitEvent event) {
+    Projectile projectile = event.getEntity();
+    UUID uuid = projectile.getUniqueId();
+
+    if (projectile instanceof Arrow && firedArrows.contains(uuid)) {
+      firedArrows.remove(uuid);
+    }
+
+    if (projectile instanceof SmallFireball && firedFireballs.contains(uuid)) {
+      firedFireballs.remove(uuid);
     }
   }
 }
