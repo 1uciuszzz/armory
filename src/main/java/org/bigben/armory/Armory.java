@@ -8,6 +8,7 @@ import org.bigben.armory.swords.LuckySword;
 import org.bigben.armory.swords.UndeadSlayerSword;
 import org.bigben.armory.tools.AquaVisionHelmet;
 import org.bigben.armory.tools.BlazeWand;
+import org.bigben.armory.tools.EchoShardBow;
 import org.bigben.armory.tools.LuckyPickaxe;
 import org.bigben.armory.tools.LuckyShovel;
 import org.bukkit.Bukkit;
@@ -25,6 +26,7 @@ public class Armory extends JavaPlugin {
   private BlazeWand blazeWand;
   private AquaVisionHelmet aquaVisionHelmet;
   private UndeadSlayerSword undeadSlayerSword;
+  private EchoShardBow echoShardBow;
 
   @Override
   public void onEnable() {
@@ -38,6 +40,7 @@ public class Armory extends JavaPlugin {
     blazeWand = new BlazeWand(this);
     aquaVisionHelmet = new AquaVisionHelmet(this);
     undeadSlayerSword = new UndeadSlayerSword(this);
+    echoShardBow = new EchoShardBow(this);
 
     registerRecipes();
 
@@ -58,6 +61,7 @@ public class Armory extends JavaPlugin {
     ShapedRecipe registerBlazeWand = blazeWand.registerRecipe();
     ShapedRecipe registerAquaVisionHelmet = aquaVisionHelmet.registerRecipe();
     ShapedRecipe registerUndeadSlayerSword = undeadSlayerSword.registerRecipe();
+    ShapedRecipe registerEchoShardBow = echoShardBow.registerRecipe();
 
     // 添加配方
     Bukkit.addRecipe(recipeGoldenChip);
@@ -70,6 +74,7 @@ public class Armory extends JavaPlugin {
     Bukkit.addRecipe(registerBlazeWand);
     Bukkit.addRecipe(registerAquaVisionHelmet);
     Bukkit.addRecipe(registerUndeadSlayerSword);
+    Bukkit.addRecipe(registerEchoShardBow);
 
     getLogger().info("已成功注册合成配方！");
   }
@@ -85,6 +90,7 @@ public class Armory extends JavaPlugin {
     getServer().getPluginManager().registerEvents(luckyPickaxe, this);
     getServer().getPluginManager().registerEvents(aquaVisionHelmet, this);
     getServer().getPluginManager().registerEvents(undeadSlayerSword, this);
+    getServer().getPluginManager().registerEvents(echoShardBow, this);
     getLogger().info("事件监听器已注册！");
   }
 
