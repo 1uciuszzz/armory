@@ -74,15 +74,9 @@ public class EchoShardBow implements Listener {
     arrow.setShooter(player);
     arrow.setPierceLevel(10);
     arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
+    arrow.setDamage(100.0);
     UUID arrowId = arrow.getUniqueId();
     customArrows.add(arrowId);
-  }
-
-  @EventHandler
-  public void onArrowDamage(EntityDamageByEntityEvent event) {
-    if (event.getDamager() instanceof Arrow arrow && customArrows.contains(arrow.getUniqueId())) {
-      event.setDamage(100.0);
-    }
   }
 
   @EventHandler

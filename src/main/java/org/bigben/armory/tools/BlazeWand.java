@@ -4,7 +4,6 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
@@ -80,6 +79,7 @@ public class BlazeWand implements Listener {
       Arrow arrow = player.launchProjectile(Arrow.class);
       arrow.setVelocity(player.getLocation().getDirection().multiply(2));
       arrow.setShooter(player);
+      arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
       firedArrows.add(arrow.getUniqueId());
       player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1f, 1f);
     } else if (event.getAction().name().contains("RIGHT")) {
@@ -93,42 +93,30 @@ public class BlazeWand implements Listener {
   }
 
   @EventHandler
-  public void onMeleeAttack(EntityDamageByEntityEvent event) {
-    if (event.getDamager() instanceof Player player) {
-      ItemStack item = player.getInventory().getItemInMainHand();
-      if (isBlazeWand(item)) {
-        event.setCancelled(true);
-      }
-    }
-  }
-
-  @EventHandler
-  public void onArrowHit(EntityDamageByEntityEvent event) {
-    Entity damager = event.getDamager();
-    if (damager instanceof Arrow && firedArrows.contains(damager.getUniqueId())) {
-      Location loc = event.getEntity().getLocation();
-      loc.getWorld().strikeLightning(loc); // 召唤雷电
-      firedArrows.remove(damager.getUniqueId());
-    }
-
-    if (damager instanceof SmallFireball && firedFireballs.contains(damager.getUniqueId())) {
-      Location loc = event.getEntity().getLocation();
-      loc.getWorld().createExplosion(loc, 2.0f); // 小型爆炸
-      firedFireballs.remove(damager.getUniqueId());
-    }
-  }
-
-  @EventHandler
   public void onProjectileHit(ProjectileHitEvent event) {
     Projectile projectile = event.getEntity();
     UUID uuid = projectile.getUniqueId();
 
+    // 处理箭矢命中
     if (projectile instanceof Arrow && firedArrows.contains(uuid)) {
-      firedArrows.remove(uuid);
+      Entity hitEntity = event.getHitEntity();
+      if (hitEntity != null) {
+        // 命中实体时触发雷电
+        Location loc = hitEntity.getLocation();
+        loc.getWorld().strikeLightning(loc); // 召唤雷电
+      }
+      firedArrows.remove(uuid); // 清除箭矢的 UUID
     }
 
+    // 处理火焰弹命中
     if (projectile instanceof SmallFireball && firedFireballs.contains(uuid)) {
-      firedFireballs.remove(uuid);
+      Entity hitEntity = event.getHitEntity();
+      if (hitEntity != null) {
+        // 命中实体时触发爆炸
+        Location loc = hitEntity.getLocation();
+        loc.getWorld().createExplosion(loc, 2.0f); // 小型爆炸
+      }
+      firedFireballs.remove(uuid); // 清除火焰弹的 UUID
     }
   }
 }
