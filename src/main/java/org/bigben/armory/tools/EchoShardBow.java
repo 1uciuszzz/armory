@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -23,11 +22,9 @@ import java.util.UUID;
 
 public class EchoShardBow implements Listener {
   private final NamespacedKey bowKey;
-  private final Plugin plugin;
   private final Set<UUID> customArrows = new HashSet<>();
 
   public EchoShardBow(JavaPlugin plugin) {
-    this.plugin = plugin;
     this.bowKey = new NamespacedKey(plugin, "EchoShardBow");
   }
 
@@ -60,7 +57,6 @@ public class EchoShardBow implements Listener {
 
   @EventHandler
   public void onRightClick(PlayerInteractEvent event) {
-    // 只响应右键
     if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
       return;
     }
@@ -76,26 +72,16 @@ public class EchoShardBow implements Listener {
     Arrow arrow = player.launchProjectile(Arrow.class);
     arrow.setVelocity(player.getLocation().getDirection().multiply(2));
     arrow.setShooter(player);
-    arrow.setPierceLevel(4); // 穿透最多 4 个实体
+    arrow.setPierceLevel(10);
     arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
-    arrow.setGravity(false);
     UUID arrowId = arrow.getUniqueId();
     customArrows.add(arrowId);
-
-    // 设置 3 秒后自动移除
-    Bukkit.getScheduler().runTaskLater(plugin, () -> {
-      if (!arrow.isDead() && !arrow.isOnGround()) {
-        arrow.remove();
-      }
-      customArrows.remove(arrowId);
-    }, 60L);
   }
 
   @EventHandler
   public void onArrowDamage(EntityDamageByEntityEvent event) {
     if (event.getDamager() instanceof Arrow arrow && customArrows.contains(arrow.getUniqueId())) {
-      event.setDamage(20.0);
-      customArrows.remove(arrow.getUniqueId());
+      event.setDamage(100.0);
     }
   }
 
@@ -109,7 +95,7 @@ public class EchoShardBow implements Listener {
   @EventHandler
   public void onArrowHit(ProjectileHitEvent event) {
     if (event.getEntity() instanceof Arrow arrow) {
-      customArrows.remove(arrow.getUniqueId()); // ❗无论命中什么都清理掉
+      customArrows.remove(arrow.getUniqueId());
     }
   }
 
