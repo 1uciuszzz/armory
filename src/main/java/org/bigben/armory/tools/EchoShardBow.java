@@ -1,16 +1,20 @@
 package org.bigben.armory.tools;
 
 import org.bukkit.*;
+import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -19,9 +23,11 @@ import java.util.UUID;
 
 public class EchoShardBow implements Listener {
   private final NamespacedKey bowKey;
+  private final Plugin plugin;
   private final Set<UUID> customArrows = new HashSet<>();
 
   public EchoShardBow(JavaPlugin plugin) {
+    this.plugin = plugin;
     this.bowKey = new NamespacedKey(plugin, "EchoShardBow");
   }
 
@@ -54,6 +60,11 @@ public class EchoShardBow implements Listener {
 
   @EventHandler
   public void onRightClick(PlayerInteractEvent event) {
+    // 只响应右键
+    if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+      return;
+    }
+
     Player player = event.getPlayer();
     ItemStack item = player.getInventory().getItemInMainHand();
 
@@ -66,10 +77,18 @@ public class EchoShardBow implements Listener {
     arrow.setVelocity(player.getLocation().getDirection().multiply(2));
     arrow.setShooter(player);
     arrow.setPierceLevel(4); // 穿透最多 4 个实体
-    customArrows.add(arrow.getUniqueId());
+    arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
+    arrow.setGravity(false);
+    UUID arrowId = arrow.getUniqueId();
+    customArrows.add(arrowId);
 
-    player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1f, 1.2f);
-    player.spawnParticle(Particle.END_ROD, player.getEyeLocation(), 10, 0.2, 0.2, 0.2, 0.01);
+    // 设置 3 秒后自动移除
+    Bukkit.getScheduler().runTaskLater(plugin, () -> {
+      if (!arrow.isDead() && !arrow.isOnGround()) {
+        arrow.remove();
+      }
+      customArrows.remove(arrowId);
+    }, 60L);
   }
 
   @EventHandler
@@ -84,6 +103,13 @@ public class EchoShardBow implements Listener {
   public void onItemDamage(PlayerItemDamageEvent event) {
     if (isCustomBow(event.getItem())) {
       event.setCancelled(true); // 不损坏
+    }
+  }
+
+  @EventHandler
+  public void onArrowHit(ProjectileHitEvent event) {
+    if (event.getEntity() instanceof Arrow arrow) {
+      customArrows.remove(arrow.getUniqueId()); // ❗无论命中什么都清理掉
     }
   }
 
