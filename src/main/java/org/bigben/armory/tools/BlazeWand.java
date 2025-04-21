@@ -79,16 +79,14 @@ public class BlazeWand implements Listener {
       Arrow arrow = player.launchProjectile(Arrow.class);
       arrow.setVelocity(player.getLocation().getDirection().multiply(2));
       arrow.setShooter(player);
-      arrow.setPickupStatus(AbstractArrow.PickupStatus.CREATIVE_ONLY);
+      arrow.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
       firedArrows.add(arrow.getUniqueId());
-      player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1f, 1f);
     } else if (event.getAction().name().contains("RIGHT")) {
       // 发射火焰弹
       SmallFireball fireball = player.launchProjectile(SmallFireball.class);
       fireball.setVelocity(player.getLocation().getDirection().multiply(1.5));
       fireball.setShooter(player);
       firedFireballs.add(fireball.getUniqueId());
-      player.getWorld().playSound(player.getLocation(), Sound.ITEM_FIRECHARGE_USE, 1f, 1f);
     }
   }
 
