@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.*;
@@ -19,13 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 public class EchoShardBow implements Listener {
   private final NamespacedKey bowKey;
-  private final Set<UUID> customArrows = new HashSet<>();
 
   public EchoShardBow(JavaPlugin plugin) {
     this.bowKey = new NamespacedKey(plugin, "EchoShardBow");
@@ -78,8 +72,7 @@ public class EchoShardBow implements Listener {
     arrow.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
     arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 100, 1), false);
     arrow.addCustomEffect(new PotionEffect(PotionEffectType.SLOW, 100, 10), false);
-    UUID arrowId = arrow.getUniqueId();
-    customArrows.add(arrowId);
+    arrow.getPersistentDataContainer().set(bowKey, PersistentDataType.BYTE, (byte) 1);
   }
 
   @EventHandler
@@ -90,19 +83,16 @@ public class EchoShardBow implements Listener {
   }
 
   @EventHandler
-  public void onArrowHit(ProjectileHitEvent event) {
-    if (event.getEntity() instanceof Arrow arrow) {
-      customArrows.remove(arrow.getUniqueId());
-    }
-  }
-
-  @EventHandler
   public void onArrowHitDamage(EntityDamageByEntityEvent event) {
+
     if (!(event.getDamager() instanceof Arrow arrow))
       return;
     if (!(arrow.getShooter() instanceof Player))
       return;
     if (!(event.getEntity() instanceof LivingEntity target))
+      return;
+
+    if (!arrow.getPersistentDataContainer().has(bowKey, PersistentDataType.BYTE))
       return;
 
     double health = target.getHealth();

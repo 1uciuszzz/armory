@@ -112,7 +112,7 @@ public class BlazeWand implements Listener {
       if (hitEntity != null) {
         // 命中实体时触发爆炸
         Location loc = hitEntity.getLocation();
-        loc.getWorld().createExplosion(loc, 2.0f); // 小型爆炸
+        loc.getWorld().createExplosion(loc, 2.0f, false, false); // 小型爆炸
       }
       firedFireballs.remove(uuid); // 清除火焰弹的 UUID
     }
