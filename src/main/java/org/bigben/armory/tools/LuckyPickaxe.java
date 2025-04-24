@@ -47,7 +47,7 @@ public class LuckyPickaxe implements Listener {
     ItemMeta meta = item.getItemMeta();
 
     if (meta != null) {
-      meta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 3, true);
+      meta.addEnchant(Enchantment.FORTUNE, 3, true);
       meta.setUnbreakable(true);
       meta.setDisplayName("§b§l幸运镐子");
       meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);

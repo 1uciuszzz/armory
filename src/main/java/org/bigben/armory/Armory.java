@@ -1,9 +1,8 @@
 package org.bigben.armory;
 
 import org.bigben.armory.axes.TreeFellerAxe;
-import org.bigben.armory.bow.LightningBow;
+import org.bigben.armory.bow.WindyBow;
 import org.bigben.armory.foods.GoldenChip;
-import org.bigben.armory.hoes.GoldenScythe;
 import org.bigben.armory.swords.LuckySword;
 import org.bigben.armory.swords.UndeadSlayerSword;
 import org.bigben.armory.tools.AquaVisionHelmet;
@@ -16,12 +15,11 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Armory extends JavaPlugin {
-  private GoldenScythe goldenScythe;
   private GoldenChip goldenChip;
   private LuckySword luckySword;
   private LuckyPickaxe luckyPickaxe;
   private TreeFellerAxe treeFellerAxe;
-  private LightningBow lightningBow;
+  private WindyBow windyBow;
   private LuckyShovel luckyShovel;
   private BlazeWand blazeWand;
   private AquaVisionHelmet aquaVisionHelmet;
@@ -33,9 +31,8 @@ public class Armory extends JavaPlugin {
     goldenChip = new GoldenChip(this);
     luckyPickaxe = new LuckyPickaxe(this);
     treeFellerAxe = new TreeFellerAxe(this);
-    lightningBow = new LightningBow(this);
+    windyBow = new WindyBow(this);
     luckyShovel = new LuckyShovel(this);
-    goldenScythe = new GoldenScythe(this);
     luckySword = new LuckySword(this);
     blazeWand = new BlazeWand(this);
     aquaVisionHelmet = new AquaVisionHelmet(this);
@@ -54,10 +51,9 @@ public class Armory extends JavaPlugin {
     ShapedRecipe recipeGoldenChip = goldenChip.registerRecipe();
     ShapedRecipe recipeLuckyPickaxe = luckyPickaxe.registerShape();
     ShapedRecipe recipeTreeFellerAxe = treeFellerAxe.registerRecipe();
-    ShapedRecipe recipeLightningBow = lightningBow.registerRecipe();
+    ShapedRecipe recipeWindyBow = windyBow.registerRecipe();
     ShapedRecipe registerLuckShovel = luckyShovel.registerRecipe();
     ShapedRecipe registerLuckSword = luckySword.registerRecipe();
-    ShapedRecipe registerGoldenScythe = goldenScythe.registerRecipe();
     ShapedRecipe registerBlazeWand = blazeWand.registerRecipe();
     ShapedRecipe registerAquaVisionHelmet = aquaVisionHelmet.registerRecipe();
     ShapedRecipe registerUndeadSlayerSword = undeadSlayerSword.registerRecipe();
@@ -67,9 +63,8 @@ public class Armory extends JavaPlugin {
     Bukkit.addRecipe(recipeGoldenChip);
     Bukkit.addRecipe(recipeLuckyPickaxe);
     Bukkit.addRecipe(recipeTreeFellerAxe);
-    Bukkit.addRecipe(recipeLightningBow);
+    Bukkit.addRecipe(recipeWindyBow);
     Bukkit.addRecipe(registerLuckShovel);
-    Bukkit.addRecipe(registerGoldenScythe);
     Bukkit.addRecipe(registerLuckSword);
     Bukkit.addRecipe(registerBlazeWand);
     Bukkit.addRecipe(registerAquaVisionHelmet);
@@ -82,10 +77,9 @@ public class Armory extends JavaPlugin {
   private void registerListeners() {
     getServer().getPluginManager().registerEvents(goldenChip, this);
     getServer().getPluginManager().registerEvents(treeFellerAxe, this);
-    getServer().getPluginManager().registerEvents(lightningBow, this);
+    getServer().getPluginManager().registerEvents(windyBow, this);
     getServer().getPluginManager().registerEvents(luckyShovel, this);
     getServer().getPluginManager().registerEvents(luckySword, this);
-    getServer().getPluginManager().registerEvents(goldenScythe, this);
     getServer().getPluginManager().registerEvents(blazeWand, this);
     getServer().getPluginManager().registerEvents(luckyPickaxe, this);
     getServer().getPluginManager().registerEvents(aquaVisionHelmet, this);

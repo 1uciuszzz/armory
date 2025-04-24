@@ -2,7 +2,6 @@ package org.bigben.armory.swords;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -46,7 +45,6 @@ public class LuckySword implements Listener {
 
     // 秒杀：10% 概率
     if (random.nextDouble() < 0.1) {
-      target.getWorld().spawnParticle(Particle.SMOKE_LARGE, target.getLocation().add(0, 1, 0), 30, 0.5, 0.5, 0.5, 0.01);
       player.sendMessage("§c绝命木剑爆发威力，一击秒杀了目标！");
       target.setHealth(0);
       return;
@@ -78,7 +76,7 @@ public class LuckySword implements Listener {
       meta.setDisplayName("§6绝命木剑");
       meta.getPersistentDataContainer().set(swordKey, PersistentDataType.BYTE, (byte) 1);
       meta.setUnbreakable(true);
-      meta.addEnchant(Enchantment.LOOT_BONUS_MOBS, 3, true);
+      meta.addEnchant(Enchantment.LOOTING, 3, true);
       sword.setItemMeta(meta);
     }
     return sword;

@@ -71,7 +71,7 @@ public class EchoShardBow implements Listener {
     arrow.setShooter(player);
     arrow.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
     arrow.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 100, 1), false);
-    arrow.addCustomEffect(new PotionEffect(PotionEffectType.SLOW, 100, 10), false);
+    arrow.addCustomEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 10), false);
     arrow.getPersistentDataContainer().set(bowKey, PersistentDataType.BYTE, (byte) 1);
   }
 

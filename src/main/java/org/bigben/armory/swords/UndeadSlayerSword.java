@@ -32,7 +32,7 @@ public class UndeadSlayerSword implements Listener {
     if (meta != null) {
       meta.setDisplayName("§5亡灵杀手");
       meta.setUnbreakable(true);
-      meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 8, true);
+      meta.addEnchant(Enchantment.SMITE, 8, true);
       meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
       sword.setItemMeta(meta);
     }
